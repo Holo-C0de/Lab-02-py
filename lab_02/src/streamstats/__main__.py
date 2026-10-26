@@ -10,7 +10,16 @@ from .report import report_json
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Потоковый анализатор логов")
+    parser = argparse.ArgumentParser(
+        description="Потоковый анализатор логов",
+        epilog="""
+    Примеры использования:
+    python -m streamstats analyze data.csv --format csv --output report.json
+    python -m streamstats analyze file1.csv file2.csv --format csv --output total.json
+    python -m streamstats analyze data.csv --format csv --skip-invalid --output report.json
+    """,
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+    )
     subparsers = parser.add_subparsers(dest="command", required=True)
     analyze_parser = subparsers.add_parser("analyze", help="Анализ логов")
 
