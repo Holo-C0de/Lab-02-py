@@ -1,3 +1,0 @@
-ruff check --select D400 --fix --unsafe-fixes lab_02
-
-Команда для постановки точек в конце предложениея
