@@ -88,7 +88,7 @@ def parser_for_json(file_json, skip_invalid):
             try:
                 line_str = json.loads(line)
                 file_time = line_str.get("timestamp")
-                file_level = line_str.get("level")
+                file_level = line_str.get("level")  
                 file_source = line_str.get("source")
                 file_message = line_str.get("message")
             except json.JSONDecodeError:  # строка не является корректным JSON
