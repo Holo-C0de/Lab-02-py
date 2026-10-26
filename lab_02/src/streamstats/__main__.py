@@ -1,9 +1,10 @@
 import argparse
 import logging  # Нужен для логов
 import sys
+import os
 
 from .analysis import update_stats
-from .errors import StreamStatsError
+from .errors import StreamStatsError, InputFileNotFoundError
 from .models import Stats
 from .parsers import parser_for_csv, parser_for_json
 from .report import report_json
@@ -55,6 +56,8 @@ def main() -> None:
     cur_parser = need_parser[args.format]  # по ключу находим нужный парсер
 
     for fileadress in args.inputs:  # проходим по всем введенным адресам
+        if not os.path.exists(fileadress):
+            raise InputFileNotFoundError(f"Файл {fileadress} не существует")
         with open(fileadress, "r", encoding="utf-8") as file:
             try:
                 for item in cur_parser(file, args.skip_invalid):

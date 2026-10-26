@@ -16,3 +16,7 @@ class IncorrectEventError(StreamStatsError):
 
 class IncorrectTimestampError(IncorrectEventError):
     """Неверное время."""
+
+
+class InputFileNotFoundError(StreamStatsError):
+    """Файл для чтения не найден."""
