@@ -16,10 +16,12 @@ def sort_for_sorted(item):
 def report_json(stats: Stats, to_go: str) -> None:
     sorted_soerces = sorted(
         stats.sources.items(), key=sort_for_sorted
-    )  # list переделывает словарь в список пар
+    )  # list переделывает словарь в список пар + происходит вызов функции для ключа
     top_5_err = []
     for name, info in sorted_soerces[:5]:
-        top_5_err.append({"source": name, "errors": info["errors"]})
+        if info["errors"] > 0:
+            top_5_err.append({"source": name, "errors": info["errors"]})
+            
     data = {}  # хранит переменные для переноса их в json
 
     # Иморт данных из Stats и их экспорт  в data

@@ -1,7 +1,11 @@
 from streamstats.report import sort_for_sorted
 
 
+# проверка, что при одинаковых errors будет правильная сортировка
 def test_sorted_determin():
+    """
+    детерминированной сортировка - проверка
+    """
     # у web и api 2 ошибки, db - 0
     data = [
         ("web", {"total": 5, "errors": 2}),

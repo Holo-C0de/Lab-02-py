@@ -3,7 +3,7 @@ from datetime import datetime
 
 import pytest
 from streamstats.analysis import update_stats
-from streamstats.errors import IncorrectTimestampError, IncorrectEventError
+from streamstats.errors import IncorrectEventError, IncorrectTimestampError
 from streamstats.models import Event, Stats
 from streamstats.parsers import parser_for_csv, parser_for_json
 
@@ -25,7 +25,7 @@ def test_csv_valid():
 # Исправный файл json
 def test_jsonl_valid():
     fake_file = io.StringIO(
-        '{"timestamp": "2026-10-06T10:00:00+00:00", "level": "INFO", "source": "api", "message": "Ку, тестовый тест"}'
+        '{"timestamp": "2026-12-08T10:00:00+00:00", "level": "INFO", "source": "api", "message": "Ку, тестовый тест"}'
     )
     events = list(parser_for_json(fake_file, skip_invalid=False))
     assert len(events) == 1
@@ -35,7 +35,9 @@ def test_jsonl_valid():
 
 # Файл с неверной строкой
 def test_csv_invalid_data():  # Проверка (неверная дата)
-    fake_file = io.StringIO("timestamp,level,source,message\nnot-a-date,INFO,api,тест")
+    fake_file = io.StringIO(
+        "timestamp,level,source,message\nnot-a-date,INFO,api,тест(нет даты)"
+    )
     with pytest.raises(IncorrectTimestampError):
         list(parser_for_csv(fake_file, skip_invalid=False))
 
@@ -56,7 +58,9 @@ def test_empty_file_json():
 # Пустой файл-------
 # --skip-invalid (файл с битой строкой)
 def test_skip_inval():
-    fake_file = io.StringIO("timestamp,level,source,message\nnot-a-date,INFO,api,Тест")
+    fake_file = io.StringIO(
+        "timestamp,level,source,message\nnot-a-date,INFO,api,более тестовый тест"
+    )
     events = list(parser_for_csv(fake_file, skip_invalid=True))
     assert events[0] is None
 

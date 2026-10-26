@@ -6,7 +6,7 @@ import sys
 def test_cli(tmp_path):  # tmp_path - создать временный файл для тестов
     input_file = tmp_path / "input.csv"
     input_file.write_text(
-        "timestamp,level,source,message\n2026-10-06T10:00:00+00:00,ERROR,api,Ошибка",
+        "timestamp,level,source,message\n2026-10-06T10:00:00+00:00,ERROR,api,Ошибка прямо тут",
         encoding="utf-8",
     )
     output_file = tmp_path / "report.json"

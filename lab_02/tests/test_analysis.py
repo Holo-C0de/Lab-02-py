@@ -11,7 +11,7 @@ def test_stats_aggregation():
         timestamp=datetime.fromisoformat("2026-10-06T10:00:00+00:00"),
         level="INFO",
         source="api",
-        message="Первое сообщение",
+        message="Первая отправка",
     )
     event2 = Event(
         timestamp=datetime.fromisoformat("2026-10-06T11:00:00+00:00"),
