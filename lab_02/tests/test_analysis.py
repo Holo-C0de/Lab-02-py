@@ -34,5 +34,5 @@ def test_stats_aggregation():
     assert stats.sources["db"]["errors"] == 1
 
     # Проверка определения дат
-    assert stats.first_timestamp == event1.timestamp
+    assert stats.first_timestamp == event1.timestampс
     assert stats.last_timestamp == event2.timestamp

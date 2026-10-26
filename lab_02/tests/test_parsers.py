@@ -3,7 +3,7 @@ from datetime import datetime
 
 import pytest
 from streamstats.analysis import update_stats
-from streamstats.errors import IncorrectTimestampError
+from streamstats.errors import IncorrectTimestampError, IncorrectEventError
 from streamstats.models import Event, Stats
 from streamstats.parsers import parser_for_csv, parser_for_json
 
@@ -40,13 +40,20 @@ def test_csv_invalid_data():  # Проверка (неверная дата)
         list(parser_for_csv(fake_file, skip_invalid=False))
 
 
-# Пустой файл
-def test_empty_file():
+# Пустой файл-------
+def test_empty_file_csv():
     fake_file = io.StringIO("")
     events = list(parser_for_csv(fake_file, skip_invalid=False))
     assert len(events) == 0
 
 
+def test_empty_file_json():
+    fake_file = io.StringIO("Теееееекст")
+    with pytest.raises(IncorrectEventError):
+        list(parser_for_json(fake_file, skip_invalid=False))
+
+
+# Пустой файл-------
 # --skip-invalid (файл с битой строкой)
 def test_skip_inval():
     fake_file = io.StringIO("timestamp,level,source,message\nnot-a-date,INFO,api,Тест")
