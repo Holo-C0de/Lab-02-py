@@ -1,10 +1,10 @@
 import argparse
 import logging  # Нужен для логов
-import sys
 import os
+import sys
 
 from .analysis import update_stats
-from .errors import StreamStatsError, InputFileNotFoundError
+from .errors import InputFileNotFoundError, StreamStatsError
 from .models import Stats
 from .parsers import parser_for_csv, parser_for_json
 from .report import report_json
